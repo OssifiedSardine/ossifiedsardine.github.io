@@ -23,7 +23,7 @@ headline = "PhD student at the University of Vienna"
 # bio = "A little bit about you"
  links = [
    { email = "mailto:sebastian.edward.sherrah@univie.ac.at" },
-    { x-twitter = "https://x.com/c10r4n" },
+    { x-twitter = "https://x.com/OssifiedSardine" },
      { github = "https://github.com/SebastianSherrah" },
      { orcid = "https://orcid.org/0009-0004-1507-9433" },
    ]

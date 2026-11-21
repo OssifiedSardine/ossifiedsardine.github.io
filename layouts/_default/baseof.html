@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default "en" }}" data-theme="dark">
+<head>
+  {{- partial "head.html" . -}}
+</head>
+<body class="{{ if .IsHome }}is-home{{ else }}is-page{{ end }}">
+  <div class="shell">
+    {{- partial "header.html" . -}}
+    <main id="main-content" class="main">
+      {{- block "main" . }}{{- end }}
+    </main>
+    {{- partial "footer.html" . -}}
+  </div>
+  {{- $js := resources.Get "js/main.js" | resources.Minify | resources.Fingerprint -}}
+  <script src="{{ $js.RelPermalink }}" defer></script>
+</body>
+</html>

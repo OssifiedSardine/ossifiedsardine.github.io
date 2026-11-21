@@ -1,0 +1,103 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+{{- $pageTitle := cond .IsHome .Site.Title (printf "%s — %s" .Title .Site.Title) -}}
+{{- $description := .Description | default .Summary | default .Site.Params.description -}}
+{{- $cleanDesc := $description | plainify | truncate 160 -}}
+
+{{- /* Choose social share image:
+       1. Custom `image` set in a post's front matter
+       2. Default site card on homepage
+       3. Auto-generated per-page card with the post's own title & date */ -}}
+{{- $ogImage := "og-card.png" | absURL -}}
+{{- with .Params.image -}}
+  {{- $ogImage = . | absURL -}}
+{{- else -}}
+  {{- if not .IsHome -}}
+    {{- $base := resources.Get "og-template.png" -}}
+    {{- $font := resources.Get "fonts/Geist.ttf" -}}
+    {{- if and $base $font -}}
+      {{- $card := $base -}}
+      {{- if not .Date.IsZero -}}
+        {{- $card = $card.Filter (images.Text (.Date.Format "2 January 2006") (dict
+          "color" "#767676"
+          "size" 20
+          "x" 510
+          "y" 190
+          "font" $font
+        )) -}}
+      {{- end -}}
+      {{- $titleY := cond (not .Date.IsZero) 238 240 -}}
+      {{- $card = $card.Filter (images.Text .Title (dict
+        "color" "#111111"
+        "size" 48
+        "linespacing" 10
+        "x" 510
+        "y" $titleY
+        "font" $font
+      )) -}}
+      {{- $excerpt := .Params.summary | default .Description -}}
+      {{- with $excerpt -}}
+        {{- $summaryOffset := cond (gt (len $.Title) 24) 155 92 -}}
+        {{- $card = $card.Filter (images.Text (. | plainify | truncate 95) (dict
+          "color" "#555555"
+          "size" 22
+          "linespacing" 8
+          "x" 510
+          "y" (add $titleY $summaryOffset)
+          "font" $font
+        )) -}}
+      {{- end -}}
+      {{- $ogImage = $card.Permalink -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<title>{{ $pageTitle }}</title>
+<meta name="description" content="{{ $cleanDesc }}" />
+<meta name="author" content="{{ .Site.Params.author.name }}" />
+
+<meta property="og:title" content="{{ $pageTitle }}" />
+<meta property="og:description" content="{{ $cleanDesc }}" />
+<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:image" content="{{ $ogImage }}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@OssifiedSardine" />
+<meta name="twitter:creator" content="@OssifiedSardine" />
+<meta name="twitter:title" content="{{ $pageTitle }}" />
+<meta name="twitter:description" content="{{ $cleanDesc }}" />
+<meta name="twitter:image" content="{{ $ogImage }}" />
+
+<script>
+  (function () {
+    var theme = "dark";
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "dark" || saved === "light") theme = saved;
+    } catch (e) {}
+    document.documentElement.setAttribute("data-theme", theme);
+    var m = document.createElement("meta");
+    m.name = "theme-color";
+    m.id = "theme-color-meta";
+    m.content = theme === "dark" ? "#0f0f0f" : "#ffffff";
+    document.head.appendChild(m);
+  })();
+</script>
+
+<link rel="icon" href="{{ "favicon.ico?v=2" | relURL }}" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png?v=2" | relURL }}" />
+<link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png?v=2" | relURL }}" />
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png?v=2" | relURL }}" />
+<link rel="manifest" href="{{ "site.webmanifest" | relURL }}" />
+<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }} — Blog" href="{{ "blog/index.xml" | relURL }}" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+{{- $css := resources.Get "css/main.css" | resources.Minify | resources.Fingerprint -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" />

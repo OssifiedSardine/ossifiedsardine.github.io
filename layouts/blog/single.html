@@ -1,0 +1,17 @@
+{{ define "main" }}
+<article class="page-stage">
+  <div class="grid-section">
+    <aside class="post-meta-col">
+      <a class="back-link" href="{{ "/blog/" | relURL }}">&larr; Blog</a>
+      <time class="post-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+    </aside>
+
+    <div class="post-body">
+      <h1 class="post-title">{{ .Title }}</h1>
+      <div class="post-content">
+        {{ .Content }}
+      </div>
+    </div>
+  </div>
+</article>
+{{ end }}

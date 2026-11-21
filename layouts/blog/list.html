@@ -1,0 +1,29 @@
+{{ define "main" }}
+<section class="page-stage">
+  {{- if .Pages }}
+    <section class="grid-section">
+      <h1 class="grid-label">Blog</h1>
+      <div class="grid-content">
+        {{- range .Pages.ByDate.Reverse }}
+          <article class="entry">
+            <div class="entry-head">
+              <a class="entry-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+              <time class="entry-meta" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan 2006" }}</time>
+            </div>
+            {{- with .Params.summary }}
+              <p class="entry-note">{{ . }}</p>
+            {{- end }}
+          </article>
+        {{- end }}
+      </div>
+    </section>
+  {{- else }}
+    <section class="grid-section">
+      <h1 class="grid-label">Blog</h1>
+      <div class="grid-content">
+        <p class="muted">No posts yet.</p>
+      </div>
+    </section>
+  {{- end }}
+</section>
+{{ end }}

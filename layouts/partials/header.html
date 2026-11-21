@@ -1,0 +1,20 @@
+<header class="header">
+  <a class="site-name" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+
+  <nav class="nav" aria-label="Primary">
+    {{- $current := .RelPermalink -}}
+    {{- range .Site.Menus.main }}
+      {{- $url := .URL | relURL -}}
+      {{- $active := or (eq $current $url) (and (ne $url ("/" | relURL)) (hasPrefix $current $url)) -}}
+      <a class="nav-link{{ if $active }} is-active{{ end }}" href="{{ $url }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+    {{- end }}
+    <span class="nav-indicator" aria-hidden="true"></span>
+    <button
+      type="button"
+      class="theme-btn"
+      id="theme-toggle"
+      aria-label="Toggle light and dark theme"
+      title="Toggle light / dark"
+    >&#9680;</button>
+  </nav>
+</header>

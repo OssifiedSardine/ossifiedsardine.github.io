@@ -1,0 +1,9 @@
+<footer class="footer">
+  <div class="footer-links">
+    {{- range .Site.Params.author.links }}
+      <a href="{{ .url }}"{{ if not (hasPrefix .url "mailto:") }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .name }}</a>
+    {{- end }}
+    <a href="{{ "blog/index.xml" | relURL }}">RSS</a>
+  </div>
+  <span class="footer-sardine" id="sardine" role="button" tabindex="0" aria-label="Ossified Sardine" title="Ossified Sardine"><span class="bone">&gt;</span><span class="bone">&lt;</span><span class="bone">+</span><span class="bone">+</span><span class="bone">+</span><span class="bone">°</span><span class="bone">&gt;</span></span>
+</footer>

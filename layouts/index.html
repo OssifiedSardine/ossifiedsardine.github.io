@@ -1,0 +1,30 @@
+{{ define "main" }}
+{{- $author := .Site.Params.author -}}
+<section class="home-stage">
+  <div class="home-art">
+    <canvas
+      id="kelly-ascii"
+      class="kelly-canvas"
+      width="270"
+      height="270"
+      role="img"
+      aria-label="{{ $author.imageAlt }}"
+      title="Drag to rotate"
+    ></canvas>
+    <noscript>
+      {{- with resources.Get $author.image -}}
+        <img
+          src="{{ .RelPermalink }}"
+          alt="{{ $author.imageAlt }}"
+          width="{{ .Width }}"
+          height="{{ .Height }}"
+        />
+      {{- end }}
+    </noscript>
+  </div>
+
+  <div class="home-bio">
+    {{ .Content }}
+  </div>
+</section>
+{{ end }}

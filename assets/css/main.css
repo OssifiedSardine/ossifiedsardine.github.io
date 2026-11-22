@@ -194,6 +194,31 @@ a:hover {
   width: 100%;
 }
 
+.home-art {
+  position: relative;
+  margin: 0;
+}
+
+.home-art-caption {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 0.6rem);
+  width: 280px;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateY(-2px);
+  pointer-events: none;
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+
+.kelly-canvas:hover ~ .home-art-caption,
+.kelly-canvas.is-dragging ~ .home-art-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .kelly-canvas {
   width: 280px;
   height: 280px;
@@ -427,6 +452,10 @@ code {
   .grid-section {
     grid-template-columns: 1fr;
     gap: 1.75rem;
+  }
+
+  .home-art-caption {
+    top: calc(100% + 0.35rem);
   }
 
   .grid-section {

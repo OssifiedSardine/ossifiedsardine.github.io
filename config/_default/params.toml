@@ -1,11 +1,12 @@
 # Personal details & site links
-description = "Sebastian Sherrah — PhD student at the Computational Communication Science Lab, University of Vienna."
+description = "Sebastian Sherrah — doctoral candidate at the Computational Communication Science Lab, University of Vienna."
 
 [author]
   name = "Sebastian Sherrah"
   email = "sebastian.edward.sherrah@univie.ac.at"
   image = "nedkelly-pfp.jpg"
   imageAlt = "Interactive 3D ASCII Ned Kelly helmet inspired by Sidney Nolan"
+  imageCaption = "Inspired by the Kellys of Sidney Nolan"
 
   [[author.links]]
     name = "Email"

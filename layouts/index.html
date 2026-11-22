@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{- $author := .Site.Params.author -}}
 <section class="home-stage">
-  <div class="home-art">
+  <figure class="home-art">
     <canvas
       id="kelly-ascii"
       class="kelly-canvas"
@@ -21,7 +21,10 @@
         />
       {{- end }}
     </noscript>
-  </div>
+    {{- with $author.imageCaption }}
+    <figcaption class="home-art-caption">{{ . }}</figcaption>
+    {{- end }}
+  </figure>
 
   <div class="home-bio">
     {{ .Content }}

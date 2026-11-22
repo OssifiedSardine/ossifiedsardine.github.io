@@ -20,7 +20,7 @@
       {{- $card := $base -}}
       {{- if not .Date.IsZero -}}
         {{- $card = $card.Filter (images.Text (.Date.Format "2 January 2006") (dict
-          "color" "#767676"
+          "color" "#8a8a8a"
           "size" 20
           "x" 510
           "y" 190
@@ -29,7 +29,7 @@
       {{- end -}}
       {{- $titleY := cond (not .Date.IsZero) 238 240 -}}
       {{- $card = $card.Filter (images.Text .Title (dict
-        "color" "#111111"
+        "color" "#f0f0f0"
         "size" 48
         "linespacing" 10
         "x" 510
@@ -40,7 +40,7 @@
       {{- with $excerpt -}}
         {{- $summaryOffset := cond (gt (len $.Title) 24) 155 92 -}}
         {{- $card = $card.Filter (images.Text (. | plainify | truncate 95) (dict
-          "color" "#555555"
+          "color" "#b8b8b8"
           "size" 22
           "linespacing" 8
           "x" 510

@@ -1,5 +1,5 @@
 # Main website settings
-baseURL = "https://ossifiedsardine.github.io/"
+baseURL = "https://sebs.md/"
 defaultContentLanguage = "en"
 title = "Sebastian Sherrah"
 
